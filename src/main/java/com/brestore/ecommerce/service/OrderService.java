@@ -15,6 +15,7 @@ import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -37,10 +38,10 @@ public class OrderService {
     @Autowired
     OrderItemsRepository orderItemsRepository;
 
-    //@Value("${BASE_URL}")
+    @Value("${BASE_URL}")
     private String baseURL;
 
-    //@Value("${STRIPE_SECRET_KEY}")
+    @Value("${STRIPE_SECRET_KEY}")
     private String apiKey;
 
     // create total price
@@ -99,7 +100,7 @@ public class OrderService {
 
         List<CartItemDto> cartItemDtoList = cartDto.getcartItems();
 
-        // create the order and save it
+        // create the order and save it 
         Order newOrder = new Order();
         newOrder.setCreatedDate(new Date());
         newOrder.setSessionId(sessionId);
