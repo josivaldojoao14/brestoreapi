@@ -36,11 +36,12 @@ public class OrderService {
 
     @Autowired
     OrderItemsRepository orderItemsRepository;
-
-    @Value("${BASE_URL}")
+    
+    /*
+    //@Value("${BASE_URL}")
     private String baseURL;
 
-    @Value("${STRIPE_SECRET_KEY}")
+    //@Value("${STRIPE_SECRET_KEY}")
     private String apiKey;
 
     // create total price
@@ -92,8 +93,9 @@ public class OrderService {
                 .build();
         return Session.create(params);
     }
-
-    public void placeOrder(User user, String sessionId) {
+	*/
+    
+    public void placeOrder(User user/*, String sessionId*/) {
         // first let get cart items for the user
         CartDto cartDto = cartService.listCartItems(user);
 
@@ -102,7 +104,7 @@ public class OrderService {
         // create the order and save it 
         Order newOrder = new Order();
         newOrder.setCreatedDate(new Date());
-        newOrder.setSessionId(sessionId);
+        //newOrder.setSessionId(sessionId);
         newOrder.setUser(user);
         newOrder.setTotalPrice(cartDto.getTotalCost());
         orderRepository.save(newOrder);

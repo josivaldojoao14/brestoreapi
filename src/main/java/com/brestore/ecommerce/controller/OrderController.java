@@ -28,14 +28,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/order")
-public class OrderController {
+public class    OrderController {
     @Autowired
     private OrderService orderService;
 
     @Autowired
     private AuthenticationService authenticationService;
 
-
+    /*
     // stripe create session API
     @PostMapping("/create-checkout-session")
     public ResponseEntity<StripeResponse> checkoutList(@RequestBody List<CheckoutItemDto> checkoutItemDtoList) throws StripeException {
@@ -45,17 +45,18 @@ public class OrderController {
         // send the stripe session id in response
         return new ResponseEntity<StripeResponse>(stripeResponse, HttpStatus.OK);
     }
+    */
 
     // place order after checkout
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> placeOrder(@RequestParam("token") String token, @RequestParam("sessionId") String sessionId)
+    public ResponseEntity<ApiResponse> placeOrder(@RequestParam("token") String token/*, @RequestParam("sessionId") String sessionId*/)
             throws AuthenticationFailException {
         // validate token
         authenticationService.authenticate(token);
         // retrieve user
         User user = authenticationService.getUser(token);
         // place the order
-        orderService.placeOrder(user, sessionId);
+        orderService.placeOrder(user/*, sessionId*/);
         return new ResponseEntity<>(new ApiResponse(true, "O pedido foi realizado"), HttpStatus.CREATED);
     }
 
